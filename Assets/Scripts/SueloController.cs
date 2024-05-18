@@ -2,20 +2,32 @@
 using System.Collections;
 
 public class SueloController : MonoBehaviour {
-    //private Rigidbody rb;
+    private Rigidbody rb;
 
     // Use this for initialization
+    Gyroscope m_Gyro;
+
     void Start () {
-       //rb = GetComponent<Rigidbody>();
+       rb = GetComponent<Rigidbody>();
+
+       if(SystemInfo.deviceType != DeviceType.Desktop) {
+            m_Gyro = Input.gyro;
+            m_Gyro.enabled = true;
+        } 
     }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        float posH = Input.GetAxis("Horizontal");
-        float posV = Input.GetAxis("Vertical");
+        if(SystemInfo.deviceType == DeviceType.Desktop) {
+            float posH = Input.GetAxis("Horizontal");
+            float posV = Input.GetAxis("Vertical");
 
-        Vector3 movimiento = new Vector3(posH, 0.0f, posV);
+            transform.Rotate(new Vector3(posV, posH, 0));
+        } else {
+            float posH = m_Gyro.rotationRate.y;
+            float posV = -m_Gyro.rotationRate.x;
 
-        transform.Rotate(new Vector3(posV, posH, 0));
+            transform.Rotate(new Vector3(posV, posH, 0));
+        }
     }
 }

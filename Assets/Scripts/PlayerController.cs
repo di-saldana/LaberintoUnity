@@ -11,44 +11,60 @@ public class PlayerController : MonoBehaviour {
 	private Rigidbody rb;
     private int contador;
 
+    Gyroscope m_Gyro;
+
 	void Start() 
 	{
 		rb = GetComponent<Rigidbody>();
         contador = 0;
         SetCountText();
         winText.text = "";
+
+        // Time.timeScale = 0;
+
+        if(SystemInfo.deviceType != DeviceType.Desktop) {
+            m_Gyro = Input.gyro;
+            m_Gyro.enabled = true;
+        }    
 	}
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        float posH = Input.GetAxis("Horizontal");
-        float posV = Input.GetAxis("Vertical");
+        if(SystemInfo.deviceType == DeviceType.Desktop) {
+            float posH = Input.GetAxis("Horizontal");
+            float posV = Input.GetAxis("Vertical");
 
-        Vector3 movimiento = new Vector3(posH, 0.0f, posV);
+            Vector3 movimiento = new Vector3(posH, 0.0f, posV);
 
-        rb.AddForce(movimiento * velocidad);
+            rb.AddForce(movimiento * 10);
+        } else{
+            float posH = m_Gyro.rotationRate.y;
+            float posV = -m_Gyro.rotationRate.x;
 
+            Vector3 movimiento = new Vector3 (posH, 0.0f, posV);
+                        
+            rb.AddForce(movimiento * 10);
+        }
     }
 
     void OnTriggerEnter(Collider other)
     {
-            if (other.gameObject.CompareTag("mono"))
-            {
-                other.gameObject.SetActive(false);
-                contador = contador + 1;
-                SetCountText();
-            }
-
+        if (other.gameObject.CompareTag("mono"))
+        {
+            other.gameObject.SetActive(false);
+            contador = contador + 1;
+            SetCountText();
+        }
     }
 
     void SetCountText()
     {
-            countText.text = "Contador: " + contador.ToString();
-            if (contador >= 4)
-            {
-                winText.text = "Ganaste!!";
-            }
+        countText.text = "Contador: " + contador.ToString();
+        if (contador >= 4)
+        {
+            winText.text = "Ganaste!!";
+        }
     }
 
     private void OnTriggerExit(Collider other)
