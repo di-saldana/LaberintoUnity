@@ -23,6 +23,10 @@ public class PlayerController : MonoBehaviour {
     public static int cont_crab;
     public static int cont_shell;
     public static int cont_star;
+    
+    public AudioSource crab_sound;
+    public AudioSource shell_sound;
+    public AudioSource star_sound;
 
 	void Start() 
 	{
@@ -32,8 +36,6 @@ public class PlayerController : MonoBehaviour {
         cont_star = 0;
         SetCountText();
         winText.text = "";
-
-        // Time.timeScale = 0;
 
         if(SystemInfo.deviceType != DeviceType.Desktop) {
             m_Gyro = Input.gyro;
@@ -68,18 +70,21 @@ public class PlayerController : MonoBehaviour {
             other.gameObject.SetActive(false);
             cont_crab = cont_crab + 1;
             crab.text = cont_crab.ToString();
+            crab_sound.Play();
         }
         if (other.gameObject.CompareTag("shell"))
         {
             other.gameObject.SetActive(false);
             cont_shell = cont_shell + 1;
             shell.text = cont_shell.ToString();
+            shell_sound.Play();
         }  
         if (other.gameObject.CompareTag("star"))
         {
             other.gameObject.SetActive(false);
             cont_star = cont_star + 1;
             star.text = cont_star.ToString();
+            star_sound.Play();
 
             if (cont_star == 1)
             {
