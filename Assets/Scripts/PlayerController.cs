@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour {
     public TextMeshProUGUI star;
     public GameController over; 
 
+    public GameObject GameOverPanel;
+    public GameObject ball;
+
     public static int cont_crab;
     public static int cont_shell;
     public static int cont_star;
@@ -81,8 +84,8 @@ public class PlayerController : MonoBehaviour {
             if (cont_star == 1)
             {
                 winText.text = "Ganaste!!";
+                over.Win();
             }
-            over.Win();
         }
     }
 
@@ -99,8 +102,11 @@ public class PlayerController : MonoBehaviour {
     {
 		if (other.gameObject.CompareTag("tablero"))
 		{
-			winText.text = "Perdiste?!! :(";
-			Invoke("QuitGame", 1f);
+            GameOverPanel.SetActive(true);
+            ball.SetActive(false);  
+
+            // winText.text = "Perdiste?!! :(";
+			// Invoke("QuitGame", 1f);
 		}
 	}
 
