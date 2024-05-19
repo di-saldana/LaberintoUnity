@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour {
     public TextMeshProUGUI crab;
     public TextMeshProUGUI shell;
     public TextMeshProUGUI star;
-    // public PauseMenu over;
+    public GameController over; // GameManager over; 
 
     public static int cont_crab;
     public static int cont_shell;
@@ -60,35 +60,25 @@ public class PlayerController : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        // if (other.gameObject.CompareTag("mono"))
-        // {
-        //     other.gameObject.SetActive(false);
-        //     contador = contador + 1;
-        //     SetCountText();
-        // }
-
         if (other.gameObject.CompareTag("crab"))
         {
             other.gameObject.SetActive(false);
-            // coinsound.Play();
             cont_crab = cont_crab + 1;
             crab.text = cont_crab.ToString();
         }
         if (other.gameObject.CompareTag("shell"))
         {
             other.gameObject.SetActive(false);
-            // trophysound.Play();
             cont_shell = cont_shell + 1;
             shell.text = cont_shell.ToString();
         }  
         if (other.gameObject.CompareTag("star"))
         {
             other.gameObject.SetActive(false);
-            // diamondsound.Play();
             cont_star = cont_star + 1;
             star.text = cont_star.ToString();
 
-            // over.Win();
+            over.Win();
         }
     }
 
