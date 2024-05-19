@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour {
 
     void SetCountText()
     {
-        countText.text = "Contador: " + contador.ToString();
+        countText.text = contador.ToString();
         if (contador >= 4)
         {
             winText.text = "Ganaste!!";
