@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour {
     public AudioSource crab_sound;
     public AudioSource shell_sound;
     public AudioSource star_sound;
+    public AudioSource game_over_sound;
 
 	void Start() 
 	{
@@ -109,6 +110,7 @@ public class PlayerController : MonoBehaviour {
 		{
             GameOverPanel.SetActive(true);
             ball.SetActive(false);  
+            game_over_sound.Play();
 
             // winText.text = "Perdiste?!! :(";
 			// Invoke("QuitGame", 1f);
