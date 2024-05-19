@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour {
     public TextMeshProUGUI crab;
     public TextMeshProUGUI shell;
     public TextMeshProUGUI star;
-    public GameController over; // GameManager over; 
+    public GameController over; 
 
     public static int cont_crab;
     public static int cont_shell;
