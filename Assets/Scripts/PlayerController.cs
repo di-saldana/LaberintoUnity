@@ -78,6 +78,10 @@ public class PlayerController : MonoBehaviour {
             cont_star = cont_star + 1;
             star.text = cont_star.ToString();
 
+            if (cont_star == 1)
+            {
+                winText.text = "Ganaste!!";
+            }
             over.Win();
         }
     }
